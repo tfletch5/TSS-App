@@ -1,20 +1,84 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<app-header></app-header>
+<router-outlet></router-outlet>
 
+<div class="footer text-center">
+    <div class="container">
+        <div class="row justify-content-center py-4">
+            <div class="col-sm-12 col-md-2">
+                <a class="footer-link" (click)="open(contentAbout);">ABOUT TSS</a>
+            </div>
+            <div class="col-sm-12 col-md-2">
+                <a class="footer-link" (click)="open(contentHow);">HOW IT WORKS</a>
+            </div>
+        </div>
+    </div>
+    <div>THE SECRET SOCIETY &copy; 2018</div>
+</div>
+
+<ng-template #contentAbout let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">About The Secret Society</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col">
+                    <p>Based in Los Angeles, the Secret Society is a group of taste makers and lifestyle purveyors from across America who have converged to provide first-class residents of each major city a safe haven to escape the drudgery of a mundane
+                        social life. It's our mission to provide a choice selection of individuals with an exclusive and upscale environment to relax, network, mix and mingle. We have sought out the cities top power brokers, trendsetters, professionals,
+                        socially progressive and artistically inclined to join our preferential network. All we ask of our patrons is trust.</p>
+                    <ul class="about">
+                        <li>TRUST THAT: Your identity will be protected.</li>
+                        <li>TRUST THAT: You will find our events to be thrilling.</li>
+                        <li>TRUST THAT: You will meet interesting people from all walks of life and backgrounds.</li>
+                        <li>TRUST THAT: You will be assured that our events will be safe and exclusive.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<ng-template #contentHow let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">How The Secret Society Works</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row justify-content-md-center col">
+                <ul class="about">
+                    <li>You have been presented with a membership card because one of our representatives felt you were the kind of socialite we would like to welcome into our network.</li>
+                    <li>Your temporary membership card is activated by visiting our site and entering the access code on your card.</li>
+                    <li>You will be taken to another screen which will ask for some additional information about you and for you to set up a username and password. After this, you will gain access to our private event listings.</li>
+                    <li>Please fill out our survey so that we can learn more about you and so that we may provide you with a better experience. The survey is encouraged but not mandatory. </li>
+                    <li>
+                        <p>Select the upcoming event you would like to attend and either pay for a single guest ticket or join the Secret Society as a member. </p>
+                        <p>The first event that you attend will be complimentary. If you would like to bring a guest, please send us an email to, guestlist@thesecretsociety.us, with there name, number and email address and we will register an account for
+                            them as well. ( Please remember that this event will count for the first complimentary event for your guest as well. ) </p>
+                    </li>
+                    <li>
+                        <p>Even if you select not to purchase a membership, your guest membership enables you to still attend events at a guest's premium.</p>
+                        <p>You will be added to our private email list and are welcome to attend selected events on an ala carte basis.</p>
+                    </li>
+                    <li>We strive to provide a rich, fulfilling experience for our members and strongly encourage you to consider making the investment to become a Secret Society member.</li>
+                    <li>Bring your TSS card and a valid state-issued driver's license, I.D. or passport to the event with you.</li>
+                    <li>Bring your cellular device with you for ticket processing and membership verification.</li>
+                </ul>
+
+                <p>All purchases are processed through Stripe which ia a secured credit card processing platform. Patrons who sign up as members will be automatically billed monthly by our system.</p>
+                <p>For any questions do not hesitate to email us at info@thesecretsociety.us. One of our representatives will respond within 24 hours.</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>

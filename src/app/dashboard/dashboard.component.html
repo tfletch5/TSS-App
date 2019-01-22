@@ -1,0 +1,504 @@
+<div class="container-fluid dashboard">
+    <div class="row">
+        <div class="col">
+            <h3>Dashboard</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <ngb-tabset #t="ngbTabset">
+                <ngb-tab id="tab-account" title="Account Info">
+                    <ng-template ngbTabContent>
+                        <div class="row tab-account">
+                            <div class="col">
+                                <h4>Customer</h4>
+                                <p>{{ user?.first_name || "First Name" }} {{ user?.last_name || "Last Name" }} <span class="badge badge-primary"> {{ user?.userlevel }} </span></p>
+
+                                <h4>Address</h4>
+                                <p>{{ user?.address || "Street Address" }}<br/> {{ user?.city || "City" }}, {{ user?.state || "State" }} {{user?.zip || "Zip"}}</p>
+
+                                <h4>Email</h4>
+                                <p>{{ user?.email || "Email" }}</p>
+
+                                <h4>Phone</h4>
+                                <p>{{ user?.phone || "Phone" }}</p>
+                            </div>
+                            <div class="col text-right">
+                                <button class="btn btn-info btn-sm" (click)="open(contentAddress)">
+                                    <fa-icon [icon]="faEdit"></fa-icon>
+                                    Edit Account Info
+                                </button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+
+                <ngb-tab id="tab-membership" title="Membership">
+                    <ng-template ngbTabContent>
+                        <div class="row tab-membership">
+                            <div class="col">
+                                <h4>Membership</h4>
+                                <p>{{ member?.name }}</p>
+
+                                <h4>Description</h4>
+                                <p [innerHTML]="member?.description"></p>
+
+                                <h4>Frequency</h4>
+                                <p>{{ member?.frequency }}</p>
+
+                                <h4>Cost</h4>
+                                <p>{{ member?.cost | currency }}</p>
+
+                                <h4>Cost Per Event</h4>
+                                <p>{{ member?.cost_per_event | percent }}</p>
+                            </div>
+                            <div class="col text-right">
+                                <button class="btn btn-info btn-sm" (click)="open(contentMembership)">
+                                    <fa-icon [icon]="faEdit"></fa-icon>
+                                    Change Membership
+                                </button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+
+                <ngb-tab id="tab-survey" title="Survey">
+                    <ng-template ngbTabContent>
+                        <div class="row tab-survey">
+                            <div class="col">
+                                <h4>Ethnicity</h4>
+                                <p>{{ survey?.ethnicity }}</p>
+
+                                <h4>Gender</h4>
+                                <p>{{ survey?.gender }}</p>
+
+                                <h4>Income</h4>
+                                <p>{{ survey?.income }}</p>
+
+                                <h4>Employment</h4>
+                                <p>{{ survey?.employment }}</p>
+
+                                <h4>Sports</h4>
+                                <p>{{ survey?.sports }}</p>
+
+                                <h4>Travel</h4>
+                                <p>{{ survey?.travel }}</p>
+                            </div>
+                            <div class="col">
+                                <h4>Fashion</h4>
+                                <p>{{ survey?.fashion }}</p>
+
+                                <h4>Technology</h4>
+                                <p>{{ survey?.technology }}</p>
+
+                                <h4>Arts</h4>
+                                <p>{{ survey?.arts }}</p>
+
+                                <h4>Fitness</h4>
+                                <p>{{ survey?.fitness }}</p>
+
+                                <h4>Food</h4>
+                                <p>{{ survey?.food }}</p>
+
+                                <h4>Interest</h4>
+                                <p>{{ survey?.interest }}</p>
+
+                                <!-- <h4>Listen</h4>
+                                <p>{{ survey?.listen }}</p> -->
+                            </div>
+                            <div class="col text-right">
+                                <button class="btn btn-info btn-sm" (click)="open(contentSurvey)">
+                                    <fa-icon [icon]="faEdit"></fa-icon> Edit Survey
+                                </button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+            <h3>Your Events</h3>
+            <hr/>
+            <div class="row listevents">
+                <div class="col-sm-12 col-lg-3" *ngFor="let event of uevents">
+                    <figure class="figure mt-3">
+                        <img [src]="img_path + event?.url" [alt]="event?.name" class="figure-img img-fluid rounded" (click)="open(contentEvent, event, 'event')" onerror="this.src='https://placeimg.com/640/480/people'">
+                        <figcaption class="figure-caption">{{ event?.name }}</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Edit Address -->
+<ng-template #contentAddress let-modal>
+    <div class="modal-header">
+        <h2 class="modal-title" id="modal-basic-title">Account Info</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="addressForm" (ngSubmit)="onUpdateUser(user.id)">
+
+                <!-- Address field -->
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" formControlName="address" [value]="user?.address" class="form-control" />
+                </div>
+
+                <!-- City field -->
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" formControlName="city" [value]="user.city" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>State</label>
+                    <select class="form-control" formControlName="state" [value]="user.state">
+                        <option value="{{state.id}}" *ngFor="let state of states">{{state.name}}</option>
+                    </select>
+                </div>
+
+                <!-- Cost Per field -->
+                <div class="form-group">
+                    <label>Zip</label>
+                    <input type="text" formControlName="zip" [value]="user.zip" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" formControlName="email" [value]="user.email" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" formControlName="phone" [value]="user.phone" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label cfor="birthday">Birthday</label>
+                    <div class="input-group">
+                        <input class="form-control" formControlName="birthday" placeholder="mm/dd/yyyy" name="dp" ngbDatepicker #d="ngbDatepicker" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendar"></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create event button -->
+                <div class="form-group">
+                    <button class="btn btn-outline-primary">Update Address</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<!-- Edit Membership -->
+<ng-template #contentMembership let-modal>
+    <div class="modal-header">
+        <h2 class="modal-title" id="modal-basic-title">Membership Info</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <ngb-accordion [closeOthers]="true" activeIds="static-1">
+                <ngb-panel class="tabs" id="{{membership.id}}" *ngFor="let membership of memberships">
+                    <ng-template ngbPanelTitle>{{ membership.name }}</ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="row">
+                            <div class="col" [innerHTML]="membership.description"></div>
+                            <div class="col">
+                                <h5>Membership Cost</h5>
+                                <p>{{ membership.cost | currency }}</p>
+                                <h5>Payment Frequency</h5>
+                                <p>{{ membership.frequency }}</p>
+                                <button class="btn btn-primary" (click)="open(contentConfirmMembership, membership, 'membership')">Select this Membership</button>
+
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<!-- Edit Survey -->
+<ng-template #contentSurvey let-modal>
+    <div class="modal-header">
+        <h2 class="modal-title" id="modal-basic-title">Survey</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="surveyForm" (ngSubmit)="onUpdateSurvey()">
+
+                <div class="form-group">
+                    <label for="ethnicity">Ethnicity</label>
+                    <select formControlName="ethnicity" class="form-control" [value]="survey?.ethnicity">
+                        <option value=""></option>
+                        <option value="African American">African American</option>
+                        <option value="White">White</option>
+                        <option value="Hispanic">Hispanic</option>
+                        <option value="Asian">Asian</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select formControlName="gender" class="form-control" [value]="survey?.gender">
+                        <option value=""></option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="income">Median Household Income</label>
+                    <select formControlName="income" class="form-control" [value]="survey?.income">
+                        <option value=""></option>
+                        <option value="$10,000 - $20,000">$10,000 - $20,000</option>
+                        <option value="$21,000 - $35,000">$21,000 - $35,000</option>
+                        <option value="$36,000 - $50,000">$36,000 - $50,000</option>
+                        <option value="$51,000 - $80,000">$51,000 - $80,000</option>
+                        <option value="$81,00 - $100,000">$81,00 - $100,000</option>
+                        <option value="Over $100,000">Over $100,000</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="employment">Employment</label>
+                    <select formControlName="employment" class="form-control" [value]="survey?.employment">
+                        <option value=""></option>
+                        <option value="Banking">Banking</option>
+                        <option value="Education">Education</option>
+                        <option value="Media">Media/Entertainment/Arts</option>
+                        <option value="Self">Self-Employed</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="Medical">Medical Field</option>
+                        <option value="State">State Employee</option>
+                        <option value="Health">Health and Beauty</option>
+                        <option value="Real Estate">Real Estate/Construction</option>
+                        <option value="Service">Service/Hospitality</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <legend>Interest</legend>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="sports">Sports</label>
+                    <select formControlName="sports" class="form-control" [value]="survey?.sports">
+                        <option value=""></option>
+                        <option value="None">None</option>
+                        <option value="Baseball">Baseball</option>
+                        <option value="Basketball">Basketball</option>
+                        <option value="Football">Football</option>
+                        <option value="Golf">Golf</option>
+                        <option value="Tennis">Tennis</option>
+                        <option value="Running">Running</option>
+                        <option value="Cycling">Cycling</option>
+                    </select>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="travel">Travel</label>
+                    <select formControlName="travel" class="form-control" [value]="survey?.travel">
+                        <option value=""></option>
+                        <option value="None">None</option>
+                        <option value="Vacations">Vacation Excursions</option>
+                        <option value="Tourisms">International Tourism</option>
+                        <option value="Travel">Conventions &amp; Business Travel</option>
+                    </select>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="fashion">Fashion</label>
+                    <select formControlName="fashion" class="form-control" [value]="survey?.fashion">
+                        <option value=""></option>
+                        <option value="None">None</option>
+                        <option value="Clothes">Designer Clothes</option>
+                        <option value="Jewelry">Jewelry</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Fragrances">Fine Fragrances &amp; Cosmetics</option>
+                        <option value="Urban Wear">Urban Wear</option>
+                    </select>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="technology">Technology</label>
+                    <select formControlName="technology" class="form-control" [value]="survey?.technology">
+                        <option value=""></option>
+                        <option value="None">None</option>
+                        <option value="Software">Computers &amp; Software</option>
+                        <option value="Cellphone">Cell Phones</option>
+                        <option value="Internet">Web Surfing/Internet</option>
+                        <option value="Communication">Wireless Communication</option>
+                    </select>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="arts">Arts &amp; Entertainment</label>
+                    <select formControlName="arts" class="form-control" [value]="survey?.arts">
+                        <option value=""></option>
+                        <option value="None">None</option>
+                        <option value="Literatture">Literature</option>
+                        <option value="Art">Art Galleries</option>
+                        <option value="Performing Arts">Performing Arts</option>
+                        <option value="Video Games">Video Games</option>
+                        <option value="Automobiles">Automobiles</option>
+                        <option value="Museums">Museums</option>
+                        <option value="Night Clubs">Night Clubs</option>
+                        <option value="Movies">Movies/Films</option>
+                        <option value="Bookstore">Bookstore</option>
+                        <option value="Motorcycles">Motorcycles</option>
+                    </select>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="health">Health, Beauty, Fitness</label>
+                    <select formControlName="fitness" class="form-control" [value]="survey?.fitness">
+                        <option value=""></option>
+                        <option value="None">None</option>
+                        <option value="Beautician">Beautician/Esthetician</option>
+                        <option value="Manicurist">Manicurist</option>
+                        <option value="Barber">Barber Shops</option>
+                        <option value="Fitness">Fitness Clubs</option>
+                        <option value="Nutrition">Nutrition</option>
+                    </select>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="food">Food &amp; Libations</label>
+                    <select formControlName="food" class="form-control" [value]="survey?.food">
+                        <option value=""></option>
+                        <option value="None">None</option>
+                        <option value="Dining">Dining Out</option>
+                        <option value="Cigars">Cigars &amp; Cigarettes</option>
+                        <option value="Fine Wine">Fine Wines &amp; Alcohol</option>
+                    </select>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="interest">What Type of Events Interest You Most?</label>
+                    <select formControlName="interest" class="form-control" [value]="survey?.interest">
+                        <option value=""></option>
+                        <option value="None">None</option>
+                        <option value="Dining">Dining Out</option>
+                        <option value="Cigars">Cigars &amp; Cigarettes</option>
+                        <option value="Fine Wine">Fine Wine &amp; Alcohol</option>
+                        <option value="Concerts">Concerts</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Live Music">Live Music</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-outline-primary">Save Survey</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<!-- Event View -->
+<ng-template #contentEvent let-modal>
+    <div class="modal-header">
+        <h2 class="modal-title" id="modal-basic-title">{{ modevent?.name }}</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img class="img" width="100%" [src]="img_path + modevent?.url" onerror="this.src='https://placeimg.com/640/480/people'" />
+                </div>
+                <div class="col">
+                    Date:<br/> {{ modevent?.event_date }} <br/><br/> Time:
+                    <br/> {{ modevent?.start_time }} - {{ modevent?.end_time }}
+                </div>
+            </div>
+            <div class="row py-3">
+                <div class="col">
+                    <strong><u>Event Description</u></strong>
+                    <p [innerHTML]="modevent?.description"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<!-- Preview event flyer -->
+<ng-template #contentPreview let-modal>
+    <div class="modal-header">
+        <h2 class="modal-title" id="modal-basic-title">{{ modevent.name }}</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img class="img" width="100%" [src]="img_path + modevent?.url" onerror="this.src='https://placeimg.com/640/480/people'" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<ng-template #contentConfirmMembership let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Membership Confirmation</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row center">
+                Are you sure you want to subscribe to &nbsp;<strong>{{ modmem.name }}</strong>?
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="openHandler(modmem)">Yes</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">No</button>
+    </div>
+</ng-template>

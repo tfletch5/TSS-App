@@ -1,0 +1,10 @@
+.container {
+    color: #c5c2c2;
+    margin: 50px;
+}
+
+.about li {
+    list-style: none;
+    padding: 10px 0px;
+    line-height: 2em;
+}

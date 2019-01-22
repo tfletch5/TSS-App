@@ -1,0 +1,232 @@
+<div class="container-fluid">
+    <div class="row">
+        <h3>Places</h3>
+    </div>
+    <div class="row add-row">
+        <div class="col"></div>
+        <div class="col text-right">
+            <button class="btn btn-success" (click)="open(contentNew, null)"><fa-icon [icon]="faPlusCircle"></fa-icon> Add New Place</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-light table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">LOCATION</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">ADDRESS</th>
+                    <th scope="col">PHONE</th>
+                    <th scope="col">WEBSITE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let place of places">
+                    <th scope="row">{{ place.id }}</th>
+                    <td>{{ place.location }}</td>
+                    <td>{{ place.name }}</td>
+                    <td>
+                        {{ place.address }}<br/> {{ place.city }}, {{ place.state }} {{ place.zip }}
+                    </td>
+                    <td>{{ place.phone }}</td>
+                    <td>{{ place.website }}</td>
+                    <td>
+                        <button class="btn btn-info" (click)="open(contentEdit, place)">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>&nbsp;
+                        <button class="btn btn-danger" (click)="open(contentDelete, place)">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #contentDelete let-modal>
+    <div class="modal-header bg-danger">
+        <h4 class="modal-title" id="modal-basic-title">Delete Confirmation</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            Are you sure you want to delete <strong>{{ modplace.name }}</strong>?
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="delete(modplace.id); modal.close()">Yes</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">No</button>
+    </div>
+</ng-template>
+
+<!-- <ng-template #contentView let-modal>
+        <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="modal-basic-title">{{ moduser.first_name }} {{ moduser.last_name }}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        Address<br/> {{ moduser.address }}<br/> {{ moduser.city }}, {{ moduser.state }} {{ moduser.zip}}<br/> {{ moduser.phone }} <br/> {{ moduser.email }}
+                    </div>
+                    <div class="col">
+                        City: {{ moduser.location }}<br/> Ambassador: {{ moduser.ambassador }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+        </div>
+    </ng-template> -->
+
+<ng-template #contentEdit let-modal>
+    <div class="modal-header bg-info">
+        <h4 class="modal-title" id="modal-basic-title">{{ modplace.name }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="placeForm" (ngSubmit)="onUpdate(modplace.id)">
+
+                <!-- Place Location -->
+                <div class="form-group">
+                    <label>Location</label>
+                    <select class="form-control" formControlName="location_id" [value]="modplace.location_id" required>
+                        <option value="{{location.id}}" *ngFor="let location of locations">{{location.name}}</option>
+                    </select>
+                </div>
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" formControlName="name" [value]="modplace.name" class="form-control" required />
+                </div>
+
+                <!-- Address field -->
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" formControlName="address" [value]="modplace.address" class="form-control" required />
+                </div>
+
+                <!-- City field -->
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" formControlName="city" [value]="modplace.city" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label>State</label>
+                    <select class="form-control" formControlName="state" [value]="modplace.state" required>
+                        <option value="{{state.id}}" *ngFor="let state of states">{{state.name}}</option>
+                    </select>
+                </div>
+
+                <!-- Cost Per field -->
+                <div class="form-group">
+                    <label>Zip</label>
+                    <input type="text" formControlName="zip" [value]="modplace.zip" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" formControlName="phone" [value]="modplace.phone" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Website</label>
+                    <input type="text" formControlName="website" [value]="modplace.website" class="form-control" required />
+                </div>
+
+                <!-- Create event button -->
+                <div class="form-group">
+                    <button class="btn btn-outline-primary">Update Place</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<!-- Create New Modal -->
+<ng-template #contentNew let-modal>
+    <div class="modal-header bg-success">
+        <h4 class="modal-title" id="modal-basic-title">Create a Place</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="placeForm" (ngSubmit)="onSubmit()">
+
+                <!-- Event Location -->
+                <div class="form-group">
+                    <label>Location</label>
+                    <select class="form-control" formControlName="location_id" required>
+                            <option value="{{location.id}}" *ngFor="let location of locations">{{location.name}}</option>
+                        </select>
+                </div>
+
+                <!-- First Name -->
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" formControlName="name" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" formControlName="address" class="form-control" required />
+                </div>
+
+                <!-- Cost field -->
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" formControlName="city" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label>State</label>
+                    <select class="form-control" formControlName="state" required>
+                            <option value="{{state.id}}" *ngFor="let state of states">{{state.name}}</option>
+                        </select>
+                </div>
+
+                <!-- Cost Per field -->
+                <div class="form-group">
+                    <label>Zip</label>
+                    <input type="text" formControlName="zip" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" formControlName="phone" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Website</label>
+                    <input type="text" formControlName="website" class="form-control" />
+                </div>
+
+                <!-- Create event button -->
+                <div class="form-group">
+                    <button class="btn btn-outline-primary" *ngIf="placeForm.valid">Create a Place</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+    </div>
+</ng-template>

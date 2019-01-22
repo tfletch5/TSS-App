@@ -1,0 +1,67 @@
+.nav-item>button,
+.drop>button {
+    color: rgb(161, 161, 161);
+}
+
+.nav-item>button:hover,
+.drop>button:hover {
+    color: rgb(255, 255, 255);
+}
+
+#main-menu {
+    background-color: #fff;
+    position: absolute;
+    z-index: 999;
+}
+
+#admin-menu {
+    background-color: #fff;
+    position: absolute;
+    z-index: 999;
+}
+
+.about li {
+    list-style: none;
+    padding: 5px 0px;
+    line-height: 2em;
+}
+
+.btn-outline-dark,
+.btn-outline-light {
+    border: none;
+}
+
+.dropdown-toggle {
+    width: 300px;
+    display: block;
+}
+
+.dropdown-menu {
+    top: -5px;
+}
+
+.css-dropdown .css-dropdown-menu {
+    margin-top: -5px;
+    display: none;
+}
+
+.css-dropdown:hover .css-dropdown-menu {
+    display: block;
+    position: absolute;
+    z-index: 999;
+}
+
+.admin-dropdown .admin-dropdown-menu {
+    margin-top: -5px;
+    display: none;
+}
+
+.admin-dropdown:hover .admin-dropdown-menu {
+    display: block;
+    position: absolute;
+    z-index: 999;
+}
+
+.admin-dropdown-menu {
+    border: 1px solid #ccc;
+}

@@ -1,0 +1,175 @@
+<div class="container-fluid">
+    <div class="row">
+        <h3>Memberships</h3>
+    </div>
+    <div class="row add-row">
+        <div class="col"></div>
+        <div class="col text-right">
+            <button class="btn btn-success" (click)="open(contentNew, null)"><fa-icon [icon]="faPlusCircle"></fa-icon> Add New Membership</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-light table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">DESCRIPTION</th>
+                    <th scope="col">COST</th>
+                    <th scope="col">FREQUENCY</th>
+                    <th scope="col">COST PER</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let mem of memberships">
+                    <th scope="row">{{ mem.id }}</th>
+                    <td>{{ mem.name }}</td>
+                    <td [innerHTML]="mem.description"></td>
+                    <td>{{ mem.cost | currency }}</td>
+                    <td>{{ mem.frequency }}</td>
+                    <td>{{ mem.cost_per_event | percent }}</td>
+                    <td>
+                        <button class="btn btn-info" (click)="open(contentEdit, mem)">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>&nbsp;
+                        <button class="btn btn-danger" (click)="open(contentDelete, mem)">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #contentDelete let-modal>
+    <div class="modal-header bg-danger">
+        <h4 class="modal-title" id="modal-basic-title">Delete Confirmation</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            Are you sure you want to delete <strong>{{ modmem.name }}</strong>?
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="delete(modmem.id, modmem.product_id, modmem.plan_id); modal.close()">Yes</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">No</button>
+    </div>
+</ng-template>
+
+<!-- Edit Membership -->
+<ng-template #contentEdit let-modal>
+    <div class="modal-header bg-info">
+        <h4 class="modal-title" id="modal-basic-title">{{ modmem.name }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="membershipForm" (ngSubmit)="onUpdate(modmem.id)">
+
+                <!-- First Name -->
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" formControlName="name" [value]="modmem.name" class="form-control" required />
+                </div>
+
+                <!-- Event Desription -->
+                <div class="form-group">
+                    <label>Description</label>
+                    <!-- <textarea formControlName="description" class="form-control" [value]="modmem.description"></textarea> -->
+                    <angular-editor formControlName="description" [config]="editorConfig" (ngValue)="modmem.description"></angular-editor>
+                </div>
+
+                <!-- Cost field -->
+                <div class="form-group">
+                    <label>Cost</label>
+                    <input type="text" formControlName="cost" [value]="modmem.cost" class="form-control" required />
+                </div>
+
+                <!-- Frequency -->
+                <div class="form-group">
+                    <label>Frequency</label>
+                    <select class="form-control" formControlName="frequency" [value]="modmem.frequency" required>
+                        <option value="{{freq.id}}" *ngFor="let freq of frequencies">{{freq.name}}</option>
+                    </select>
+                </div>
+
+                <!-- Cost Per field -->
+                <div class="form-group">
+                    <label>Cost Per Event</label>
+                    <input type="text" formControlName="cost_per_event" [value]="modmem.cost_per_event" class="form-control" required />
+                </div>
+
+                <!-- Create event button -->
+                <div class="form-group">
+                    <button class="btn btn-outline-primary">Update Membership</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<!-- Create New Modal -->
+<ng-template #contentNew let-modal>
+    <div class="modal-header bg-success">
+        <h4 class="modal-title" id="modal-basic-title">Create Membership</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="membershipForm" (ngSubmit)="onSubmit()">
+
+                <!-- First Name -->
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" formControlName="name" class="form-control" required />
+                </div>
+
+                <!-- Event Desription -->
+                <div class="form-group">
+                    <label>Description</label>
+                    <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+                </div>
+
+                <!-- Cost field -->
+                <div class="form-group">
+                    <label>Cost</label>
+                    <input type="text" formControlName="cost" class="form-control" placeholder="100.00" required />
+                </div>
+
+                <!-- Frequency -->
+                <div class="form-group">
+                    <label>Frequency</label>
+                    <select class="form-control" formControlName="frequency" required>
+                            <option value="{{freq.id}}" *ngFor="let freq of frequencies">{{freq.name}}</option>
+                        </select>
+                </div>
+
+                <!-- Cost Per field -->
+                <div class="form-group">
+                    <label>Cost Per Event</label>
+                    <input type="text" formControlName="cost_per_event" class="form-control" required />
+                </div>
+
+                <!-- Create event button -->
+                <div class="form-group">
+                    <button class="btn btn-outline-primary" *ngIf="membershipForm.valid">Create Membership</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+    </div>
+</ng-template>

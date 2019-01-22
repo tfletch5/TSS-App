@@ -1,0 +1,320 @@
+<div class="container-fluid">
+    <div class="row">
+        <h3>Events</h3>
+    </div>
+    <div class="row add-row">
+        <div class="col"></div>
+        <div class="col text-right">
+            <button class="btn btn-success" (click)="open(contentNew, null)"><fa-icon [icon]="faPlusCircle"></fa-icon> Add New Event</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-light table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">FLYER</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">WHEN</th>
+                    <th scope="col">LOCATION</th>
+                    <th scope="col">PLACE</th>
+                    <th scope="col">COST</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let event of events">
+                    <td><img (click)="open(contentPreview, event)" class="img-thumbnail" width="50" height="50" [src]="img_path + event?.url" onerror="this.src='https://placeimg.com/640/480/people'" /></td>
+                    <td (click)="open(contentView, event)">{{ event.name }}</td>
+                    <td>
+                        {{ event.event_date }}<br/>{{ event.start_time }} - {{ event.end_time }}
+                    </td>
+                    <td>{{ event.location }}</td>
+                    <td>{{ event.place }}</td>
+                    <td>{{ event.cost | currency }}</td>
+                    <td>
+                        <button class="btn btn-info" (click)="open(contentEdit, event)">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>&nbsp;
+                        <button class="btn btn-danger" (click)="open(contentDelete, event)">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Create New Modal -->
+<ng-template #contentNew let-modal>
+    <div class="modal-header bg-dark">
+        <h4 class="modal-title" id="modal-basic-title">Create an Event</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+
+                <!-- Event Location -->
+                <div class="form-group">
+                    <label>Location</label>
+                    <select class="form-control" formControlName="location_id" #l (change)="getPlacesByLocation(l.value)" required>
+                        <option value="">Select a location</option>
+                        <option value="{{location.id}}" *ngFor="let location of locations">{{location.name}}</option>
+                    </select>
+                </div>
+
+                <!-- Event Name -->
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" formControlName="name" class="form-control" required />
+                </div>
+
+                <!-- Event Desription -->
+                <div class="form-group">
+                    <label>Description</label>
+                    <!-- <textarea formControlName="description" class="form-control"></textarea> -->
+                    <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+                </div>
+
+                <!-- Event date -->
+                <div class="form-group">
+                    <label>Event Date</label>
+                    <div class="input-group">
+                        <input class="form-control" formControlName="event_date" placeholder="mm/dd/yyyy" name="dp" ngbDatepicker #d="ngbDatepicker" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendar"></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Start and End time -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label>Start Time</label>
+                            <ngb-timepicker formControlName="start_time" [meridian]="meridian" required></ngb-timepicker>
+                        </div>
+                        <div class="col">
+                            <label>End Time</label>
+                            <ngb-timepicker formControlName="end_time" [meridian]="meridian" required></ngb-timepicker>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flyer upload -->
+                <div class="form-group">
+                    <label>Upload Event Flyer</label>
+                    <div class="input-group">
+                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                Upload an Image
+                            </button>
+                        </div>
+                        <div class="input-group">
+                            <img *ngIf="previewflyer" [src]="img_path + previewflyer" width="200" height="200" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost field -->
+                <div class="form-group">
+                    <label>Cost</label>
+                    <input type="text" formControlName="cost" class="form-control" required />
+                </div>
+
+                <!-- Event Place -->
+                <div class="form-group">
+                    <label>Place</label>
+                    <select class="form-control" formControlName="place_id" required>
+                        <option value="">Select a place</option>
+                        <option value="{{place.id}}" *ngFor="let place of places">{{place.name}}</option>
+                    </select>
+                </div>
+
+                <!-- Create event button -->
+                <div class="form-group">
+                    <button class="btn btn-outline-primary" *ngIf="eventForm.valid">Create Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+    </div>
+</ng-template>
+
+<!-- Delete Modal -->
+<ng-template #contentDelete let-modal>
+    <div class="modal-header bg-dark">
+        <h4 class="modal-title" id="modal-basic-title">Delete Confirmation</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            Are you sure you want to delete <strong>{{ modevent.name }}</strong>?
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="delete(modevent.id); modal.close()">Yes</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">No</button>
+    </div>
+</ng-template>
+
+<ng-template #contentView let-modal>
+    <div class="modal-header bg-primary">
+        <h4 class="modal-title" id="modal-basic-title">{{ modevent.name }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img class="img" width="100%" [src]="img_path + modevent?.url" onerror="this.src='https://placeimg.com/640/480/people'" />
+                </div>
+                <div class="col">
+                    Date:<br/> {{ modevent.event_date }} <br/><br/> Time:
+                    <br/> {{ modevent.start_time }} - {{ modevent.end_time }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" [innerHTML]="modevent.description">
+                    Description:
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<ng-template #contentPreview let-modal>
+    <div class="modal-header bg-dark">
+        <h4 class="modal-title" id="modal-basic-title">View Event</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img class="img" width="100%" [src]="img_path + modevent?.url" onerror="this.src='https://placeimg.com/640/480/people'" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>
+
+<!-- Update Event information -->
+<ng-template #contentEdit let-modal>
+    <div class="modal-header bg-info">
+        <h4 class="modal-title" id="modal-basic-title">{{ modevent.name }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="eventForm" (ngSubmit)="onUpdate(modevent.id)">
+
+                <!-- Event Location -->
+                <div class="form-group">
+                    <label>Location</label>
+                    <select class="form-control" formControlName="location_id" #l (change)="getPlacesByLocation(l.value)" [value]="modevent.location_id" required>
+                                <option value="{{location.id}}" *ngFor="let location of locations">{{location.name}}</option>
+                            </select>
+                </div>
+
+                <!-- Event Name -->
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" formControlName="name" class="form-control" [value]="modevent.name" required />
+                </div>
+
+                <!-- Event Desription -->
+                <div class="form-group">
+                    <label>Description</label>
+                    <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+                    <!-- <div [innerHTML]="modevent.description"></div> -->
+                    <!-- <textarea formControlName="description" class="form-control" [value]="modevent.description"></textarea> -->
+                </div>
+
+                <!-- Event date -->
+                <div class="form-group">
+                    <label>Event Date</label>
+                    <div class="input-group">
+                        <input class="form-control" formControlName="event_date" placeholder="mm/dd/yyyy" name="dp" ngbDatepicker #d="ngbDatepicker" [value]="modevent.event_date" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendar"></fa-icon></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Start and End time -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label>Start Time</label>
+                            <ngb-timepicker formControlName="start_time" [meridian]="meridian" required></ngb-timepicker>
+                        </div>
+                        <div class="col">
+                            <label>End Time</label>
+                            <ngb-timepicker formControlName="end_time" [meridian]="meridian" required></ngb-timepicker>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flyer upload -->
+                <div class="form-group">
+                    <label>Upload Event Flyer</label>
+                    <div class="input-group">
+                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                        Upload an Image
+                                    </button>
+                        </div>
+                        <div class="input-group">
+                            <img *ngIf="previewflyer" [src]="previewflyer" width="200" height="200" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost field -->
+                <div class="form-group">
+                    <label>Cost</label>
+                    <input type="text" formControlName="cost" class="form-control" [value]="modevent.cost" required />
+                </div>
+
+                <!-- Event Place -->
+                <div class="form-group">
+                    <label>Place</label>
+                    <select class="form-control" formControlName="place_id" required>
+                                <option value="{{place.id}}" *ngFor="let place of places">{{place.name}}</option>
+                            </select>
+                </div>
+
+                <!-- Create event button -->
+                <div class="form-group">
+                    <button class="btn btn-outline-primary">Update Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+    </div>
+</ng-template>

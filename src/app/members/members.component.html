@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <div class="row">
+        <h3>Members</h3>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row">
+        <table class="table table-light table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">CODE</th>
+                    <th scope="col">USER</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let mem of members">
+                    <td>{{ mem.code }}</td>
+                    <td>{{ mem.user }}</td>
+                    <td>{{ mem.name }}</td>
+                    <td>{{ mem.status }}</td>
+                    <!-- <td>
+                        <button class="btn btn-info" (click)="open(contentEdit, mem)">
+                            <fa-icon [icon]="faEdit"></fa-icon>
+                        </button>&nbsp;
+                        <button class="btn btn-danger" (click)="open(contentDelete, mem)">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- <ng-template #contentDelete let-modal>
+    <div class="modal-header bg-danger">
+        <h4 class="modal-title" id="modal-basic-title">Delete Confirmation</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            Are you sure you want to delete <strong>{{ modmem.user }}</strong>'s membership?
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="delete(modmem.id); modal.close()">Yes</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">No</button>
+    </div>
+</ng-template> -->
+
+<!-- <ng-template #contentView let-modal>
+        <div class="modal-header bg-primary">
+            <h4 class="modal-title" id="modal-basic-title">{{ moduser.first_name }} {{ moduser.last_name }}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        Address<br/> {{ moduser.address }}<br/> {{ moduser.city }}, {{ moduser.state }} {{ moduser.zip}}<br/> {{ moduser.phone }} <br/> {{ moduser.email }}
+                    </div>
+                    <div class="col">
+                        City: {{ moduser.location }}<br/> Ambassador: {{ moduser.ambassador }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+        </div>
+    </ng-template>
+    
+    <ng-template #contentEdit let-modal>
+        <div class="modal-header bg-info">
+            <h4 class="modal-title" id="modal-basic-title">{{ moduser.first_name }} {{ moduser.last_name }}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        Address<br/> {{ moduser.address }}<br/> {{ moduser.city }}, {{ moduser.state }} {{ moduser.zip}}<br/> {{ moduser.phone }} <br/> {{ moduser.email }}
+                    </div>
+                    <div class="col">
+                        City: {{ moduser.location }}<br/> Ambassador: {{ moduser.ambassador }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Done</button>
+        </div>
+    </ng-template> -->

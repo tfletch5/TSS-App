@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row">
+        <h3>Surveys</h3>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row">
+        <table class="table table-light table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">USER</th>
+                    <th scope="col">ETHNICITY</th>
+                    <th scope="col">GENDER</th>
+                    <th scope="col">INCOME</th>
+                    <th scope="col">EMPLOYMENT</th>
+                    <th scope="col">SPORTS</th>
+                    <th scope="col">TRAVEL</th>
+                    <th scope="col">FASHION</th>
+                    <th scope="col">TECHNOLOGY</th>
+                    <th scope="col">ARTS</th>
+                    <th scope="col">FITNESS</th>
+                    <th scope="col">FOOD</th>
+                    <th scope="col">INTEREST</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let survey of surveys">
+                    <td>{{ survey.user }}</td>
+                    <td>{{ survey.ethnicity }}</td>
+                    <td>{{ survey.gender }}</td>
+                    <td>{{ survey.income }}</td>
+                    <td>{{ survey.employment }}</td>
+                    <td>{{ survey.sports }}</td>
+                    <td>{{ survey.travel }}</td>
+                    <td>{{ survey.fashion }}</td>
+                    <td>{{ survey.technology }}</td>
+                    <td>{{ survey.arts }}</td>
+                    <td>{{ survey.fitness }}</td>
+                    <td>{{ survey.food }}</td>
+                    <td>{{ survey.interest }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

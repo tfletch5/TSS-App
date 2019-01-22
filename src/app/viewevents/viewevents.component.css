@@ -1,0 +1,25 @@
+img {
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+    background-color: #fff;
+}
+
+ul>li {
+    /* background-color: #f0f0f0; */
+    /* border-bottom: 1px solid #ccc; */
+    /* padding-top: 20px; */
+}
+
+ul>li>p {
+    padding: 15px;
+    margin-bottom: 0px;
+}
+
+.listevents {
+    margin-right: -30px;
+    margin-left: -30px;
+}

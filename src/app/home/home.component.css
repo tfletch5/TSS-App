@@ -1,0 +1,59 @@
+.login-page {
+    color: white;
+    height: 100%;
+}
+
+.page-title {
+    color: #fff;
+}
+
+.content {
+    color: #fff;
+}
+
+.responsive {
+    width: 100% !important;
+    max-width: 500px;
+    height: 100%;
+    padding-top: 30px;
+}
+
+.center-block {
+    padding-top: 3%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-box {
+    margin-top: 50px;
+}
+
+.code-box {
+    margin: 10px auto;
+}
+
+.code-box-button {
+    padding: 8px 9px 5px;
+    background: #CCD;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-left: 1px solid #999;
+}
+
+.email-input {
+    padding: 15px 13px;
+}
+
+.go-btn {
+    background: none;
+    border: none;
+}
+
+.togglebtn {
+    margin-bottom: 20px;
+}
+
+.signup {
+    margin: 0 auto;
+}

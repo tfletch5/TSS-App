@@ -48,7 +48,7 @@ module.exports = "/* based on angular-toastr css https://github.com/Foxandxss/an
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\n@import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';\n/* You can add global styles to this file, and also import other style files */\n.container-fluid {\n    margin-top: 40px;\n    color: #000;\n    padding: 0px 40px;\n}\n.add-row {\n    padding-bottom: 10px;\n}"
+module.exports = "\n\n@import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';\n@import url('https://fonts.googleapis.com/css?family=Raleway');\n/* You can add global styles to this file, and also import other style files */\nbody {\n    background-color: #000 !important;\n    font-family: 'Raleway', serif;\n}\n.container-fluid {\n    color: #000;\n    padding: 30px;\n    background-color: #fff;\n    margin-top: 0px;\n}\n.add-row {\n    padding-bottom: 10px;\n}\n/* .modal-header {\n    background-color: #343a40!important;\n    color: #fff;\n} */"
 
 /***/ }),
 
