@@ -1,4 +1,3 @@
-import { MembershipService } from './../_services/membership.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { faCalendar, faEdit } from '@fortawesome/free-solid-svg-icons';
