@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { cfg } from '../config';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable()
 export class AuthenticationService {
@@ -31,6 +32,36 @@ export class AuthenticationService {
 
     setAdminState(state) {
         this.admin.next(state);
+    }
+
+    // Get the token
+    getToken(): string {
+        return localStorage.getItem('token');
+    }
+
+    // Set the token
+    setToken(token: string): void {
+        localStorage.setItem('token', token);
+    }
+
+    // 
+    getTokenExpirationDate(token: string): Date {
+        const decoded = jwt_decode(token);
+    
+        if (decoded.exp === undefined) return null;
+    
+        const date = new Date(0); 
+        date.setUTCSeconds(decoded.exp);
+        return date;
+    }
+    
+    isTokenExpired(token?: string): boolean {
+        if(!token) token = this.getToken();
+        if(!token) return true;
+    
+        const date = this.getTokenExpirationDate(token);
+        if(date === undefined) return false;
+        return !(date.valueOf() > new Date().valueOf());
     }
 
     // Log a user in

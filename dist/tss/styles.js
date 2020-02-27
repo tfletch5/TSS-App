@@ -48,7 +48,7 @@ module.exports = "/* based on angular-toastr css https://github.com/Foxandxss/an
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\n@import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';\n@import url('https://fonts.googleapis.com/css?family=Raleway');\n/* You can add global styles to this file, and also import other style files */\nbody {\n    background-color: #000 !important;\n    font-family: 'Raleway', serif;\n}\n.container-fluid {\n    color: #000;\n    padding: 30px;\n    background-color: #fff;\n    margin-top: 0px;\n}\n.add-row {\n    padding-bottom: 10px;\n}\n/* .modal-header {\n    background-color: #343a40!important;\n    color: #fff;\n} */"
+module.exports = "\n\n@import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';\n@import url('https://fonts.googleapis.com/css?family=Raleway');\n/* You can add global styles to this file, and also import other style files */\nbody {\n    background-color: #000 !important;\n    font-family: 'Raleway', serif;\n}\na {\n    color: #999;\n}\n.container-fluid {\n    color: #000;\n    padding: 30px;\n    background-color: #fff;\n    margin-top: 0px;\n}\n.add-row {\n    padding-bottom: 10px;\n}\n/* .nav-tabs {\n    border-bottom: 1px solid #000;\n} */\n.nav-tabs .nav-item.show .nav-link,\n.nav-tabs .nav-link.active {\n    color: #fff !important;\n    background-color: #000 !important;\n    border-color: #000;\n}"
 
 /***/ }),
 

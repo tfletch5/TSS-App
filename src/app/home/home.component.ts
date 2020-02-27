@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService, AuthenticationService } from '../_services';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
     private auth: AuthenticationService,
     private formBuilder: FormBuilder, 
     private router: Router,
-    private elementRef: ElementRef,
     private toastr: ToastrService
   ) { }
 
@@ -95,8 +94,7 @@ export class HomeComponent implements OnInit {
         this.showFailure(data['message']);
       }
     }).catch( e => {
-      console.log(e);
-      // this.showFailure(e.error['message']);
+      this.showFailure(e.error['message']);
     });
   }
 
@@ -106,7 +104,6 @@ export class HomeComponent implements OnInit {
   login() {
     console.log("logging in");
     this.auth.login(this.loginForm.value).then( data => {
-      console.log("Logged in: ", data);
         if (data['success']) {
           this.router.navigate(['/dashboard']);
         } else {
@@ -114,7 +111,6 @@ export class HomeComponent implements OnInit {
         }
       })
       .catch( e => {
-        console.log(e)
         this.showFailure(e.error['message']);
       });
   }

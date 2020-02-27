@@ -40,7 +40,7 @@ export class VieweventsComponent implements OnInit {
   private configHandler() {
     this.handler = StripeCheckout.configure({
       key: environment.stripeKey,
-      image: 'http://thesecretsociety.us/assets/imgs/SECRET_SOCIETY_MAIN.jpg',
+      image: 'https://thesecretsociety.us/assets/imgs/SECRET_SOCIETY_MAIN.jpg',
       locale: 'auto',
       token: token => {
         var payment = {
@@ -112,7 +112,6 @@ export class VieweventsComponent implements OnInit {
 
   getMembership() {
     this.userService.getMembership(this.user.id).then( data => {
-      console.log("Membership: ", data);
       var member = data['data'];
       this.membership = member.membership_id;
     })
@@ -123,7 +122,6 @@ export class VieweventsComponent implements OnInit {
       event_id: event.id,
       user_id: this.user.id
     }
-    console.log("Attend: ", attend);
     this.attendService.addAttendee(attend).then( data => {
       if (data['success']) {
         this.firstEvent();
@@ -133,7 +131,6 @@ export class VieweventsComponent implements OnInit {
       } else {
         this.showFailure(data['message']);
       }
-      console.log("RSVP: ", data);
     })
   }
 

@@ -7,7 +7,7 @@
         <div class="col-sm-12 col-lg-3" *ngFor="let event of events">
             <figure class="figure mt-3">
                 <img [src]="img_path + event?.url" [alt]="event?.name" class="figure-img img-fluid rounded" (click)="open(contentEvent, event)" onerror="this.src='https://placeimg.com/640/480/people'">
-                <figcaption class="figure-caption">{{ event?.name }}</figcaption>
+                <figcaption class="figure-caption">{{ event?.name }} <small>( {{ event?.location }} )</small></figcaption>
             </figure>
         </div>
     </div>
@@ -15,7 +15,7 @@
 
 <ng-template #contentEvent let-modal>
     <div class="modal-header">
-        <h4 class="modal-title mt-3 mb-4">{{ viewevent?.name }}</h4>
+        <h4 class="modal-title mt-3 mb-4 text-dark">{{ viewevent?.name }}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -24,9 +24,17 @@
         <img [src]="img_path + viewevent?.url" [alt]="viewevent?.name" onerror="this.src='https://placeimg.com/640/480/people'">
         <h4 class="mt-3">{{ viewevent?.name }}</h4>
         <div class="row pt-3">
-            <div class="col start"><strong><u>Event Date</u></strong><br/> <small>{{ viewevent?.event_date }}</small></div>
-            <div class="col center"><strong><u>Event Times</u></strong><br/> <small>{{ viewevent?.start_time }} - {{ viewevent?.end_time }}</small></div>
-            <div class="col end"><strong><u>Event Cost</u><br/></strong> <small>{{ viewevent?.cost | currency }}</small></div>
+            <div class="col start">
+                <strong><u>Event Date</u></strong><br/> <small>{{ viewevent?.event_date }}</small><br/>
+                <strong><u>Event Times</u></strong><br/> <small>{{ viewevent?.start_time }} - {{ viewevent?.end_time }}</small><br/>
+                <strong><u>Event Cost</u><br/></strong> <small>{{ viewevent?.cost | currency }}</small>
+            </div>
+            <div class="col">
+                <p>
+                    <strong>Venue:</strong> <br/> {{ viewevent?.place }} <br/> {{ viewevent?.place_address }} <br/> {{ viewevent?.place_city }}, {{ viewevent?.place_state }} {{ viewevent?.place_zip }} <br/> {{ viewevent?.place_phone }}
+                    <br/><a [href]="viewevent?.website" target="_blank">{{ viewevent?.website }}</a>
+                </p>
+            </div>
         </div>
         <div class="row">
             <div class="col pt-3">
@@ -36,8 +44,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button *ngIf="(membership != 11 || firstevent) && !viewevent.going" type="button" class="btn btn-outline-dark btn-success" (click)="rsvp(viewevent)">RSVP</button>
-        <button *ngIf="membership == 11 && !firstevent && !viewevent.going" type="button" class="btn btn-outline-success btn-success" (click)="openHandler(viewevent)">Purchase a Ticket</button>
+        <button *ngIf="(membership != 1 || firstevent) && !viewevent.going" type="button" class="btn btn-outline-dark btn-success" (click)="rsvp(viewevent)">RSVP</button>
+        <button *ngIf="membership == 1 && !firstevent && !viewevent.going" type="button" class="btn btn-outline-success btn-success" (click)="openHandler(viewevent)">Purchase a Ticket</button>
         <button *ngIf="viewevent.going" type="button" class="btn btn-outline-success btn-success" (click)="modal.close()">Your are Going</button>
     </div>
 </ng-template>

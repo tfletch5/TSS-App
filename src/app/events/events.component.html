@@ -48,8 +48,8 @@
 
 <!-- Create New Modal -->
 <ng-template #contentNew let-modal>
-    <div class="modal-header bg-dark">
-        <h4 class="modal-title" id="modal-basic-title">Create an Event</h4>
+    <div class="modal-header">
+        <h4 class="modal-title text-dark" id="modal-basic-title">Create an Event</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -150,7 +150,7 @@
 
 <!-- Delete Modal -->
 <ng-template #contentDelete let-modal>
-    <div class="modal-header bg-dark">
+    <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Delete Confirmation</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
@@ -168,7 +168,7 @@
 </ng-template>
 
 <ng-template #contentView let-modal>
-    <div class="modal-header bg-primary">
+    <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">{{ modevent.name }}</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
                             <span aria-hidden="true">&times;</span>
@@ -198,7 +198,7 @@
 </ng-template>
 
 <ng-template #contentPreview let-modal>
-    <div class="modal-header bg-dark">
+    <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">View Event</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
                 <span aria-hidden="true">&times;</span>
@@ -220,9 +220,9 @@
 
 <!-- Update Event information -->
 <ng-template #contentEdit let-modal>
-    <div class="modal-header bg-info">
+    <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">{{ modevent.name }}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>

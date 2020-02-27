@@ -26,8 +26,7 @@ export class EventsComponent implements OnInit {
   model;
   time = {hour: 13, minute: 30};
   meridian = true;
-  URL = `${cfg.apiUrl}/upload`;
-  public uploader: FileUploader = new FileUploader({url: this.URL, itemAlias: 'photo'});
+  public uploader: FileUploader;
   photo_uid: any;
   previewflyer: any;
   user: any;
@@ -67,6 +66,8 @@ export class EventsComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    var token = localStorage.getItem('token');
+    this.uploader = new FileUploader({url: `${cfg.apiUrl}/upload?token=${token}`, itemAlias: 'photo'});
     this.getEvents();
 
     this.location.getLocations().then( data => {
@@ -90,8 +91,8 @@ export class EventsComponent implements OnInit {
       var results = JSON.parse(response);  
       if (results.success) {
         this.photo_uid = results.data.uid;
-        this.previewflyer = results.data.url;
-        console.log("%c Photo UID: " + this.photo_uid, "color: blue");      
+        this.previewflyer = this.img_path + results.data.url;
+        console.log("%c Photo UID: " + this.previewflyer, "color: blue");      
       }
     };
   }
@@ -141,12 +142,13 @@ export class EventsComponent implements OnInit {
 
   onUpdate(id) {
     var form = this.eventForm.value;
+    form.event_flyer = this.photo_uid;
     for(var prop in form) {
       if (form.hasOwnProperty(prop) && !form[prop]) {
         delete form[prop]
       }
     }
-    if ( form.event_date ) form.event_date = cfg.timeConverter(form.event_date);
+    if ( form.event_date ) form.event_date = cfg.dateConverter(form.event_date);
     if ( form.start_time ) form.start_time = cfg.timeConverter(form.start_time);
     if ( form.end_time ) form.end_time = cfg.timeConverter(form.end_time);
     this.event.updateEvent(form, id).then( data => {

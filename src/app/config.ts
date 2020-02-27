@@ -1,8 +1,8 @@
 export let cfg = {
     // API Url
-    apiUrl: "http://localhost:3100", // "https://solutetech.io",
+    apiUrl: window.location.hostname == 'localhost' ? 'http://localhost:3100' : 'https://thesecretsociety.us',
 
-    img_path: window.location.hostname == 'localhost' ? 'http://localhost:3100' : 'https://solutetech.io',
+    img_path: window.location.hostname == 'localhost' ? 'http://localhost:3100' : 'https://thesecretsociety.us',
 
     // Formats date correctly
     dateConverter: (startdate) => {

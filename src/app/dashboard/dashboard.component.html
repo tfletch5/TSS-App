@@ -2,12 +2,27 @@
     <div class="row">
         <div class="col">
             <h3>Dashboard</h3>
+            <p class="text-muted">Your local market: {{ user.location_name }}</p>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
+    <div class="row mt-3">
+        <div class="col-sm-12 col-md-12">
             <ngb-tabset #t="ngbTabset">
+                <ngb-tab id="tab-events" title="Your Events">
+                    <ng-template ngbTabContent>
+                        <div class="row tab-events">
+                            <div class="row listevents">
+                                <div class="col-sm-12 col-lg-3" *ngFor="let event of uevents">
+                                    <figure class="figure mt-3">
+                                        <img [src]="img_path + event?.url" [alt]="event?.name" class="figure-img img-fluid rounded" (click)="open(contentEvent, event, 'event')" onerror="this.src='https://placeimg.com/640/480/people'">
+                                        <figcaption class="figure-caption">{{ event?.name }} <small>( {{ event?.location }} )</small></figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
                 <ngb-tab id="tab-account" title="Account Info">
                     <ng-template ngbTabContent>
                         <div class="row tab-account">
@@ -49,9 +64,6 @@
 
                                 <h4>Cost</h4>
                                 <p>{{ member?.cost | currency }}</p>
-
-                                <h4>Cost Per Event</h4>
-                                <p>{{ member?.cost_per_event | percent }}</p>
                             </div>
                             <div class="col text-right">
                                 <button class="btn btn-info btn-sm" (click)="open(contentMembership)">
@@ -117,19 +129,6 @@
                 </ngb-tab>
             </ngb-tabset>
         </div>
-
-        <div class="col-sm-12 col-md-6">
-            <h3>Your Events</h3>
-            <hr/>
-            <div class="row listevents">
-                <div class="col-sm-12 col-lg-3" *ngFor="let event of uevents">
-                    <figure class="figure mt-3">
-                        <img [src]="img_path + event?.url" [alt]="event?.name" class="figure-img img-fluid rounded" (click)="open(contentEvent, event, 'event')" onerror="this.src='https://placeimg.com/640/480/people'">
-                        <figcaption class="figure-caption">{{ event?.name }}</figcaption>
-                    </figure>
-                </div>
-            </div>
-        </div>
     </div>
 
 </div>
@@ -137,7 +136,7 @@
 <!-- Edit Address -->
 <ng-template #contentAddress let-modal>
     <div class="modal-header">
-        <h2 class="modal-title" id="modal-basic-title">Account Info</h2>
+        <h2 class="modal-title text-dark" id="modal-basic-title">Account Info</h2>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -206,7 +205,7 @@
 <!-- Edit Membership -->
 <ng-template #contentMembership let-modal>
     <div class="modal-header">
-        <h2 class="modal-title" id="modal-basic-title">Membership Info</h2>
+        <h2 class="modal-title text-dark" id="modal-basic-title">Membership Info</h2>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -241,7 +240,7 @@
 <!-- Edit Survey -->
 <ng-template #contentSurvey let-modal>
     <div class="modal-header">
-        <h2 class="modal-title" id="modal-basic-title">Survey</h2>
+        <h2 class="modal-title text-dark" id="modal-basic-title">Survey</h2>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -432,7 +431,7 @@
 <!-- Event View -->
 <ng-template #contentEvent let-modal>
     <div class="modal-header">
-        <h2 class="modal-title" id="modal-basic-title">{{ modevent?.name }}</h2>
+        <h2 class="modal-title text-dark" id="modal-basic-title">{{ modevent?.name }}</h2>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -444,8 +443,12 @@
                     <img class="img" width="100%" [src]="img_path + modevent?.url" onerror="this.src='https://placeimg.com/640/480/people'" />
                 </div>
                 <div class="col">
-                    Date:<br/> {{ modevent?.event_date }} <br/><br/> Time:
-                    <br/> {{ modevent?.start_time }} - {{ modevent?.end_time }}
+                    <p><strong>Date:</strong><br/> {{ modevent?.event_date }}</p>
+                    <p><strong>Time:</strong><br/> {{ modevent?.start_time }} - {{ modevent?.end_time }}</p>
+                    <p>
+                        <strong>Venue:</strong> <br/> {{ modevent?.place }} <br/> {{ modevent?.place_address }} <br/> {{ modevent?.place_city }}, {{ modevent?.place_state }} {{ modevent?.place_zip }} <br/> {{ modevent?.place_phone }}
+                        <br/><a [href]="modevent?.website" target="_blank">{{ modevent?.website }}</a>
+                    </p>
                 </div>
             </div>
             <div class="row py-3">
@@ -464,7 +467,7 @@
 <!-- Preview event flyer -->
 <ng-template #contentPreview let-modal>
     <div class="modal-header">
-        <h2 class="modal-title" id="modal-basic-title">{{ modevent.name }}</h2>
+        <h2 class="modal-title text-dark" id="modal-basic-title">{{ modevent.name }}</h2>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -485,7 +488,7 @@
 
 <ng-template #contentConfirmMembership let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Membership Confirmation</h4>
+        <h4 class="modal-title text-dark" id="modal-basic-title">Membership Confirmation</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.close()">
                 <span aria-hidden="true">&times;</span>
             </button>

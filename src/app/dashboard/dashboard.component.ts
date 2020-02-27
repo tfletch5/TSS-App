@@ -148,7 +148,7 @@ export class DashboardComponent {
   private configHandler() {
     this.handler = StripeCheckout.configure({
       key: environment.stripeKey,
-      image: 'http://thesecretsociety.us/assets/imgs/SECRET_SOCIETY_MAIN.jpg',
+      image: 'https://thesecretsociety.us/assets/imgs/SECRET_SOCIETY_MAIN.jpg',
       locale: 'auto',
       source: source => {
         console.log("Source: ", source);

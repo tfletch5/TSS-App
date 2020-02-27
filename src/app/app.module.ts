@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 import { Routing } from './app.routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -48,7 +48,6 @@ import { HeaderComponent } from './header/header.component';
     AttendeesComponent,
     AboutComponent,
     HowComponent,
-    FileSelectDirective,
     VieweventsComponent
   ],
   imports: [
@@ -58,6 +57,7 @@ import { HeaderComponent } from './header/header.component';
     NgbModule.forRoot(),
     FontAwesomeModule,
     ReactiveFormsModule,
+    FileUploadModule,
     FormsModule,
     Routing,
     BrowserAnimationsModule, // required animations module
