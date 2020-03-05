@@ -485,6 +485,7 @@ var AuthenticationService = /** @class */ (function () {
         return new Promise(function (resolve) {
             _this.http.put(_config__WEBPACK_IMPORTED_MODULE_4__["cfg"].apiUrl + "/login", credentials)
                 .subscribe(function (data) {
+                console.log('login data', data);
                 var rs = data;
                 if (rs['success']) {
                     _this.saveData(rs['data']);
@@ -1902,8 +1903,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cfg", function() { return cfg; });
 var cfg = {
     // API Url
-    apiUrl: window.location.hostname == 'localhost' ? 'http://localhost:3100' : 'https://thesecretsociety.us',
-    img_path: window.location.hostname == 'localhost' ? 'http://localhost:3100' : 'https://thesecretsociety.us',
+    apiUrl: window.location.hostname == 'localhost' ? 'http://localhost:3100' : 'https://api.thesecretsociety.us',
+    img_path: window.location.hostname == 'localhost' ? 'http://localhost:3100' : 'https://api.thesecretsociety.us',
     // Formats date correctly
     dateConverter: function (startdate) {
         return startdate.month + '/' + startdate.day + '/' + startdate.year;
