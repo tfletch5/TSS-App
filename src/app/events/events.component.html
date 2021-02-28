@@ -234,8 +234,8 @@
                 <div class="form-group">
                     <label>Location</label>
                     <select class="form-control" formControlName="location_id" #l (change)="getPlacesByLocation(l.value)" [value]="modevent.location_id" required>
-                                <option value="{{location.id}}" *ngFor="let location of locations">{{location.name}}</option>
-                            </select>
+                        <option value="{{location.id}}" *ngFor="let location of locations">{{location.name}}</option>
+                    </select>
                 </div>
 
                 <!-- Event Name -->
@@ -247,7 +247,7 @@
                 <!-- Event Desription -->
                 <div class="form-group">
                     <label>Description</label>
-                    <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+                    <angular-editor formControlName="description" placeholder={modevent.description}  [config]="editorConfig"></angular-editor>
                     <!-- <div [innerHTML]="modevent.description"></div> -->
                     <!-- <textarea formControlName="description" class="form-control" [value]="modevent.description"></textarea> -->
                 </div>

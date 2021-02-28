@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if ( localStorage.getItem('loggedin') ) this.router.navigate(['/dashboard']);
+    if ( localStorage.getItem('loggedin') ) this.router.navigate(['/viewevents']);
     
     this.signupForm = this.formBuilder.group({
       code: '',
@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit {
     form.userlevel = "user";
     this.auth.register(form).then( data => {
       if (data['success']) {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/viewevents']);
       } else {
         this.showFailure(data['message']);
       }
@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit {
     console.log("logging in");
     this.auth.login(this.loginForm.value).then( data => {
         if (data['success']) {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/viewevents']);
         } else {
           this.showFailure(data['message']);
         }

@@ -1,22 +1,26 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-
-<div class="footer text-center">
-    <div class="container">
-        <div class="row justify-content-center py-4">
-            <div class="col-sm-12 col-md-2">
-                <a class="footer-link" (click)="open(contentAbout);">ABOUT TSS</a>
-            </div>
-            <div class="col-sm-12 col-md-2">
-                <a class="footer-link" (click)="open(contentHow);">HOW IT WORKS</a>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-                <a class="footer-link" href="mailto:sales@thesecretsociety.us?subject=Customer question from site">CONTACT US</a>
+<div id="main">
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <div class="footer text-center">
+        <div class="container">
+            <div class="row justify-content-center py-4">
+                <div class="col-sm-12 col-md-2">
+                    <a class="footer-link" (click)="open(contentAbout);">ABOUT TSS</a>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <a class="footer-link" (click)="open(contentHow);">HOW IT WORKS</a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                    <a class="footer-link" href="mailto:sales@thesecretsociety.us?subject=Customer question from site">CONTACT US</a>
+                </div>
             </div>
         </div>
+        <div>THE SECRET SOCIETY &copy; 2021</div>
     </div>
-    <div>THE SECRET SOCIETY &copy; 2018</div>
 </div>
+
+
+
 
 <ng-template #contentAbout let-modal>
     <div class="modal-header">

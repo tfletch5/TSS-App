@@ -4,6 +4,7 @@
     </div>
 
     <div class="row listevents">
+        <div class="col-sm-12 col-lg-3 mt-3" *ngIf="events.length === 0">You have no events.</div>
         <div class="col-sm-12 col-lg-3" *ngFor="let event of events">
             <figure class="figure mt-3">
                 <img [src]="img_path + event?.url" [alt]="event?.name" class="figure-img img-fluid rounded" (click)="open(contentEvent, event)" onerror="this.src='https://placeimg.com/640/480/people'">

@@ -61,7 +61,7 @@ export class AuthenticationService {
 
     const date = this.getTokenExpirationDate(token);
     if(date === undefined) return false;
-    return !(date.valueOf() > new Date().valueOf());
+    return date.valueOf() <= new Date().valueOf();
   }
 
   // Log a user in

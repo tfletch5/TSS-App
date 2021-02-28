@@ -19,7 +19,7 @@ export class DashboardComponent {
   member: any;
   memberships: any;
   thismembership: any;
-  uevents: any;
+  uevents = [];
   modevent: any;
   modmem: any;
   surveyForm: FormGroup;
@@ -92,6 +92,8 @@ export class DashboardComponent {
       if ( data['success'] ) {
         localStorage.setItem('uevents', JSON.stringify(data['data']));
         this.uevents = data['data'];
+      } else {
+        this.uevents = [];
       }
     }).catch( e => console.log(e.error));
   }

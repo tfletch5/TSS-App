@@ -12,10 +12,11 @@
                 <ngb-tab id="tab-events" title="Your Events">
                     <ng-template ngbTabContent>
                         <div class="row tab-events">
-                            <div class="row listevents">
+                            <div class="col-sm-12 col-lg-3 mt-3" *ngIf="uevents.length === 0">You have no events.</div>
+                            <div class="row listevents" *ngIf="uevents.length > 0">
                                 <div class="col-sm-12 col-lg-3" *ngFor="let event of uevents">
                                     <figure class="figure mt-3">
-                                        <img [src]="img_path + event?.url" [alt]="event?.name" class="figure-img img-fluid rounded" (click)="open(contentEvent, event, 'event')" onerror="this.src='https://placeimg.com/640/480/people'">
+                                        <img [src]="img_path + event?.url" [alt]="event?.name" class="figure-img img-fluid rounded" (click)="open(contentEvent, event, 'event')">
                                         <figcaption class="figure-caption">{{ event?.name }} <small>( {{ event?.location }} )</small></figcaption>
                                     </figure>
                                 </div>
