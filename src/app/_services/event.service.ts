@@ -5,6 +5,7 @@ import { cfg } from '../config';
 @Injectable({
   providedIn: 'root'
 })
+
 export class EventService {
 
   constructor(private http: HttpClient) { }

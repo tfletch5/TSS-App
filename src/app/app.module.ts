@@ -7,6 +7,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxEditorModule } from 'ngx-editor';
+import { NgxStripeModule } from 'ngx-stripe';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -59,8 +61,10 @@ import { VieweventsComponent } from './viewevents/viewevents.component';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
+    NgbModule,
     NgxDatatableModule,
-    NgbModule.forRoot(),
+    NgxEditorModule,
+    NgxStripeModule.forRoot('sk_live_ZmZLzymNNX8wJCzoc4MbWKTi00F3qzMsuW'),
     ReactiveFormsModule,
     Routing,
     ToastrModule.forRoot(),

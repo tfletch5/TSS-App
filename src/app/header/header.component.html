@@ -22,45 +22,31 @@
     <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
             <li class="nav-item active">
-                <a class="nav-link" href="#/dashboard">My Account <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/dashboard">My Account <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#/viewevents">View Events</a>
+                <a class="nav-link" routerLink="/viewevents">View Events</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">Settings</a>
-                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+            <li class="nav-item dropdown" *ngIf="isAdmin">
+                <div ngbDropdown class="d-inline-block">
+                    <a class="nav-link" id="manageDropdown" ngbDropdownToggle>
+                        <fa-icon [icon]="faCog" size="lg"></fa-icon>
+                    </a>
+                    <div ngbDropdownMenu aria-labelledby="manageDropdown">
+                        <button ngbDropdownItem routerLink="/ambassadors">Ambassadors</button>
+                        <button ngbDropdownItem routerLink="/events">Events</button>
+                        <button ngbDropdownItem routerLink="/locations">Locations</button>
+                        <button ngbDropdownItem routerLink="/members">Members</button>
+                        <button ngbDropdownItem routerLink="/memberships">Memeberships</button>
+                        <button ngbDropdownItem routerLink="/places">Places</button>
+                        <button ngbDropdownItem routerLink="/surveys">Surveys</button>
+                        <button ngbDropdownItem routerLink="/users">Users</button>
+                    </div>
+                </div>
             </li>
         </ul>
-        <form class="d-flex">
-            <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary" type="submit">Search</button>
-        </form>
-    </div>
-
-    <!-- <button *ngIf="isAdmin" class="btn btn-outline-light admin-dropdown">
-        <fa-icon [icon]="faCog" size="lg"></fa-icon>
-        <div class="admin-dropdown-menu bg-white">
-            <p><button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/ambassadors">Ambassadors</button></p>
-            <div class="dropdown-divider"></div>
-            <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/events">Events</button>
-            <div class="dropdown-divider"></div>
-            <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/locations">Locations</button>
-            <div class="dropdown-divider"></div>
-            <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/members">Members</button>
-            <div class="dropdown-divider"></div>
-            <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/memberships">Memberships</button>
-            <div class="dropdown-divider"></div>
-            <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/places">Places</button>
-            <div class="dropdown-divider"></div>
-            <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/surveys">Surveys</button>
-            <div class="dropdown-divider"></div>
-            <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/users">Users</button>
+        <div class="d-flex">
+            <fa-icon class="nav-link" [icon]="faLock" size="lg" (click)="logout()"></fa-icon>
         </div>
-    </button> -->
+    </div>
 </nav>

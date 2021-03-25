@@ -8,9 +8,10 @@
 
     <div class="row mt-3">
         <div class="col-sm-12 col-md-12">
-            <ngb-tabset #t="ngbTabset">
-                <ngb-tab id="tab-events" title="Your Events">
-                    <ng-template ngbTabContent>
+            <ul ngbNav #nav="ngbNav" class="nav-tabs">
+                <li ngbNavItem>
+                    <a ngbNavLink>Your Events</a>
+                    <ng-template ngbNavContent>
                         <div class="row tab-events">
                             <div class="col-sm-12 col-lg-3 mt-3" *ngIf="uevents.length === 0">You have no events.</div>
                             <div class="row listevents" *ngIf="uevents.length > 0">
@@ -23,9 +24,10 @@
                             </div>
                         </div>
                     </ng-template>
-                </ngb-tab>
-                <ngb-tab id="tab-account" title="Account Info">
-                    <ng-template ngbTabContent>
+                </li>
+                <li ngbNavItem>
+                    <a ngbNavLink>Account Info</a>
+                    <ng-template ngbNavContent>
                         <div class="row tab-account">
                             <div class="col">
                                 <h4>Customer</h4>
@@ -48,10 +50,10 @@
                             </div>
                         </div>
                     </ng-template>
-                </ngb-tab>
-
-                <ngb-tab id="tab-membership" title="Membership">
-                    <ng-template ngbTabContent>
+                </li>
+                <li ngbNavItem>
+                    <a ngbNavLink>Membership</a>
+                    <ng-template ngbNavContent>
                         <div class="row tab-membership">
                             <div class="col">
                                 <h4>Membership</h4>
@@ -74,10 +76,10 @@
                             </div>
                         </div>
                     </ng-template>
-                </ngb-tab>
-
-                <ngb-tab id="tab-survey" title="Survey">
-                    <ng-template ngbTabContent>
+                </li>
+                <li ngbNavItem>
+                    <a ngbNavLink>Survey</a>
+                    <ng-template ngbNavContent>
                         <div class="row tab-survey">
                             <div class="col">
                                 <h4>Ethnicity</h4>
@@ -127,8 +129,9 @@
                             </div>
                         </div>
                     </ng-template>
-                </ngb-tab>
-            </ngb-tabset>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav"></div>
         </div>
     </div>
 

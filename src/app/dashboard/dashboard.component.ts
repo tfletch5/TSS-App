@@ -13,33 +13,33 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  user: any;
-  states: any;
-  survey: any;
-  member: any;
-  memberships: any;
-  thismembership: any;
-  uevents = [];
-  modevent: any;
-  modmem: any;
-  surveyForm: FormGroup;
   addressForm: FormGroup;
+  authenticated: any;
   faCalendar = faCalendar;
   faEdit = faEdit;
-  userlevel: any;
-  authenticated: any;
-  img_path = cfg.img_path;
   handler: any;
+  img_path = cfg.img_path;
+  member: any;
+  memberships: any;
+  modevent: any;
+  modmem: any;
+  states: any;
+  survey: any;
+  surveyForm: FormGroup;
+  thismembership: any;
+  uevents = [];
+  user: any;
+  userlevel: any;
 
   constructor(
+    private auth: AuthenticationService,
     private formBuilder: FormBuilder, 
-    private modalService: NgbModal,
-    private userservice: UserService,
-    private surveyservice: SurveyService,
     private memberservice: MemberService,
     private membership: MembershipService,
-    private auth: AuthenticationService,
+    private modalService: NgbModal,
+    private surveyservice: SurveyService,
     private toastr: ToastrService,
+    private userservice: UserService,
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     if ( this.user['userlevel'] == 'admin' ) this.auth.setAdminState(true);

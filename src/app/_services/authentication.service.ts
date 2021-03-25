@@ -23,7 +23,6 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private router: Router) { 
     if ( localStorage.getItem('loggedIn') ) {
       this.loggedIn.next(true);
-      this.router.navigate(['/dashboard']);
     } else {
       localStorage.clear();
       this.router.navigate(['/home']);
@@ -82,13 +81,13 @@ export class AuthenticationService {
 
   // Register a user
   register(form) {
-    return new Promise( ( resolve ) => {
+    return new Promise( ( resolve, reject ) => {
       this.http.post(`${cfg.apiUrl}/register`, form).subscribe( data => {
         let rs = data;
         this.saveData(rs['data']);
         this.loggedIn.next(true);
         resolve(rs);
-      }, err => resolve(err.error));
+      }, err => reject(err.error));
     });
   }
 

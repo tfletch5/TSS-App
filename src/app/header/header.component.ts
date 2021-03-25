@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faHome, faCog, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCog, faGraduationCap, faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../_services';
 
 @Component({
@@ -13,6 +13,7 @@ export class HeaderComponent {
     isAdmin: boolean;
     faHome = faHome;
     faCog = faCog;
+    faLock = faLock;
     faGraduationCap = faGraduationCap;
     title = 'TSS';
 
