@@ -34,4 +34,4 @@ const appRoutes: Routes = [
     { path: '**', redirectTo: '' }
 ];
 
-export const Routing = RouterModule.forRoot(appRoutes, { useHash: true });
+export const Routing = RouterModule.forRoot(appRoutes);

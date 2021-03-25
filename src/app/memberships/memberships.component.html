@@ -82,8 +82,14 @@
                 <!-- Event Desription -->
                 <div class="form-group">
                     <label>Description</label>
-                    <!-- <textarea formControlName="description" class="form-control" [value]="modmem.description"></textarea> -->
-                    <angular-editor formControlName="description" [config]="editorConfig" (ngValue)="modmem.description"></angular-editor>
+                    <div class="NgxEditor__Wrapper">
+                        <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+                        <ngx-editor
+                            [editor]="editor"
+                            formControlName="description"
+                            [placeholder]="description"
+                        ></ngx-editor>
+                    </div>
                 </div>
 
                 <!-- Cost field -->
@@ -139,7 +145,7 @@
                 <!-- Event Desription -->
                 <div class="form-group">
                     <label>Description</label>
-                    <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+                    <angular-editor [placeholder]="description" formControlName="description" [config]="editorConfig"></angular-editor>
                 </div>
 
                 <!-- Cost field -->
@@ -152,8 +158,8 @@
                 <div class="form-group">
                     <label>Frequency</label>
                     <select class="form-control" formControlName="frequency" required>
-                            <option value="{{freq.id}}" *ngFor="let freq of frequencies">{{freq.name}}</option>
-                        </select>
+                        <option value="{{freq.id}}" *ngFor="let freq of frequencies">{{freq.name}}</option>
+                    </select>
                 </div>
 
                 <!-- Cost Per field -->

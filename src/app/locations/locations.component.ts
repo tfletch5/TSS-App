@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { faTrash, faEdit, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import {  FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-locations',

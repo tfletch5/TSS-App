@@ -11,22 +11,22 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./viewevents.component.css']
 })
 export class VieweventsComponent implements OnInit {
-  events: any;
-  viewevent: any;
-  user: any;
-  membership: any
-  payment = false;
+  events: any = [];
   firstevent = true;
   handler: any;
-  thisevent: any;
   img_path = cfg.img_path;
+  membership: any
+  payment = false;
+  thisevent: any;
+  user: any;
+  viewevent: any;
 
   constructor(
-    private location: LocationService, 
+    private attendService: AttendeeService,
     private event: EventService, 
+    private location: LocationService, 
     private modalService: NgbModal, 
     private userService: UserService,
-    private attendService: AttendeeService,
     private toastr: ToastrService) { }
 
   ngOnInit() {

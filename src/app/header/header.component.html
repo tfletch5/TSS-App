@@ -4,7 +4,7 @@
         {{ title }}
     </a>
 
-    <a class="btn btn-outline-dark css-dropdown">
+    <!-- <a class="btn btn-outline-dark css-dropdown">
         <span class="navbar-toggler-icon"></span>
         <div class="css-dropdown-menu bg-white">
             <p><button class="dropdown-item" routerLink="/dashboard">Dashboard</button></p>
@@ -13,26 +13,40 @@
             <div class="dropdown-divider"></div>
             <p><button class="dropdown-item" (click)="logout()">Logout</button></p>
         </div>
-    </a>
+    </a> -->
 
-    <button *ngIf="isAdmin" class="btn btn-outline-light admin-dropdown">
-        <fa-icon [icon]="faCog" size="lg"></fa-icon>
-        <div class="admin-dropdown-menu bg-white">
-    <p><button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/ambassadors">Ambassadors</button></p>
-    <div class="dropdown-divider"></div>
-    <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/events">Events</button>
-    <div class="dropdown-divider"></div>
-    <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/locations">Locations</button>
-    <div class="dropdown-divider"></div>
-    <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/members">Members</button>
-    <div class="dropdown-divider"></div>
-    <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/memberships">Memberships</button>
-    <div class="dropdown-divider"></div>
-    <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/places">Places</button>
-    <div class="dropdown-divider"></div>
-    <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/surveys">Surveys</button>
-    <div class="dropdown-divider"></div>
-    <button (click)="isAdminCollapsed = !isAdminCollapsed;" class="dropdown-item" routerLink="/users">Users</button>
-    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
+
+    <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="max-height: 100px;">
+            <li class="nav-item active">
+                <a class="nav-link" href="/dashboard">My Account <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/viewevents">View Events</a>
+            </li>
+            <li class="nav-item dropdown" *ngIf="isAdmin">
+                <div ngbDropdown class="d-inline-block">
+                    <a class="nav-link" id="manageDropdown" ngbDropdownToggle>
+                        <fa-icon [icon]="faCog" size="lg"></fa-icon>
+                    </a>
+                    <div ngbDropdownMenu aria-labelledby="manageDropdown">
+                        <button ngbDropdownItem routerLink="/ambassadors">Ambassadors</button>
+                        <button ngbDropdownItem routerLink="/events">Events</button>
+                        <button ngbDropdownItem routerLink="/locations">Locations</button>
+                        <button ngbDropdownItem routerLink="/members">Members</button>
+                        <button ngbDropdownItem routerLink="/memberships">Memeberships</button>
+                        <button ngbDropdownItem routerLink="/places">Places</button>
+                        <button ngbDropdownItem routerLink="/surveys">Surveys</button>
+                        <button ngbDropdownItem routerLink="/users">Users</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="d-flex">
+            <fa-icon class="nav-link" [icon]="faLock" size="lg" (click)="logout()"></fa-icon>
+        </div>
+    </div>
 </nav>

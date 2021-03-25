@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MembershipService } from '../_services';
+import { Editor } from 'ngx-editor';
 import { faTrash, faEdit, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+
+import { MembershipService } from '../_services';
 
 @Component({
   selector: 'app-memberships',
@@ -12,38 +14,46 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./memberships.component.css']
 })
 export class MembershipsComponent implements OnInit {
-  memberships: any;
-  faTrash = faTrash;
+  editor: Editor;
   faEdit = faEdit;
-  modmem: any;
   faPlusCircle = faPlusCircle;
-  membershipForm: FormGroup;
+  faTrash = faTrash;
   frequencies = [
     { id: 'month',  name: 'monthly' },
     { id: 'year', name: 'annually' }
   ];
+  membershipForm: FormGroup;
+  memberships: any;
+  modmem: any;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '25rem',
-    minHeight: '5rem',
+    height: 'auto',
+    minHeight: '0',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
     placeholder: 'Enter text here...',
-    translate: 'no',
-    uploadUrl: 'v1/images', // if needed
-    customClasses: [ // optional
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    customClasses: [
       {
-        name: "quote",
-        class: "quote",
+        name: 'quote',
+        class: 'quote',
       },
       {
         name: 'redText',
         class: 'redText'
       },
       {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
       },
     ]
   };
@@ -56,6 +66,7 @@ export class MembershipsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.editor = new Editor();
     this.getMemberships();
 
     this.membershipForm = this.formBuilder.group({
