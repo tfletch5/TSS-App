@@ -65,3 +65,7 @@
 .admin-dropdown-menu {
     border: 1px solid #ccc;
 }
+
+.logout-btn {
+    color:#fff;
+}

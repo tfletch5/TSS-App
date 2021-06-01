@@ -42,7 +42,7 @@ export class DashboardComponent {
     private userservice: UserService,
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    if ( this.user['userlevel'] == 'admin' ) this.auth.setAdminState(true);
+    if ( this.user['userlevel'] === 'admin' ) this.auth.setAdminState(true);
 
     var csurvey = JSON.parse(localStorage.getItem('survey'));
     if (csurvey) this.survey = csurvey; else this.getSurvey();
@@ -159,23 +159,25 @@ export class DashboardComponent {
           source_id: source.id,
           subscription_id: this.member.subscription_id,
           plan_id: this.thismembership.plan_id,
-        }
+        };
 
-        this.userservice.attachSource(src).then( data => {
+        this.userservice.attachSource(src).then(data => {
+          console.log('attachSource', data);
           if (data['success']) {
             const membership = {
               user_id: this.user.id,
               membership_id: this.thismembership.id
             }
-            this.memberservice.updateMember(membership).then( data => {
-              if (data['success']) {
+            this.memberservice.updateMember(membership).then(result => {
+              console.log('updateMember', result);
+              if (result['success']) {
                 this.getMember();
                 this.modalService.dismissAll();
-                this.showSuccess(data['message'], "Membership Updated.");
+                this.showSuccess(result['message'], "Membership Updated.");
               } else {
-                this.showFailure(data['message'], "Membership Update Failed.");
+                this.showFailure(result['message'], "Membership Update Failed.");
               }
-            })
+            });
           } else {
             this.showFailure(data['message'], "Membership Update Failed.");
           }
